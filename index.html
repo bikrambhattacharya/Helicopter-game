@@ -1,0 +1,141 @@
+<html>
+
+<head>
+    <title>Helicopter Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+    <style type="text/css">
+    #myFishingGame {
+        position: relative;
+        float: left;
+        border: 1px solid #d3d3d3;
+        background-image: url(bg1.jpg);
+        margin-left:38%;
+
+    
+    }
+    #collisions{
+        font-family: 'Acme', sans-serif;
+        font-size: 40px;
+        color: white;
+    }
+    body{
+        background-image: url(mainbg.jpg);
+        font-family: 'Acme', sans-serif;
+        font-size: 20px;
+        color: white;
+    }
+    #about{
+        border: 5px solid white;
+        width: 400px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="about">Hi Visitor!<br>
+    This game is devoloped by Bikram Bhattacharya.<br>
+    This a simple game made with html,css,js(javascript)<br>
+    To score you need to collect as much oil as you can using arrow keys!!<br>
+    This Game is currently available for desktop users only
+
+</div>
+score-
+<div id="collisions">0<br>
+<button onclick="startGame()">Start Game</button></div>
+
+    <canvas id="myFishingGame" width="800" height="400">
+    </canvas>
+    <script type="text/javascript">
+    var myHero;
+    var fish;
+    var fishes = [];
+    var fishCount = 5;
+    var collisions=0;
+    var bad;
+
+    var myGameArea = {
+        canvas: document.getElementById("myFishingGame"),
+        start: function() {
+            this.context = this.canvas.getContext("2d");
+            this.interval = setInterval(updateGameArea, 50)
+        },
+        clear: function() {
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+    }
+
+    function updateGameArea() {
+        myGameArea.clear();
+        //myHero.x++;
+        for (var i = 0; i < fishCount; i++) {
+            fishes[i].x=fishes[i].x+fishes[i].speed;
+            if (fishes[i].x>800) {
+                fishes[i].x=0;
+                fishes[i].y=parseInt(Math.random().toFixed(3).substring(2))%400;
+            };
+            if(fishes[i].x>=myHero.x && fishes[i].x<=myHero.x+myHero.width && fishes[i].y>=myHero.y && fishes[i].y<=myHero.y+myHero.height){
+                fishes[i].x=0;
+                collisions++;
+                fishes[i].y=Math.floor(Math.random()*4+1);
+                document.getElementById("collisions").innerHTML=collisions;
+            }
+            fishes[i].update();
+        }
+        myHero.update();
+
+    }
+    var startGame = function() {
+        myGameArea.start();
+       var speed=5;
+        myHero = new Component(80,60 , "heli.jpg", 600, 120,speed);
+        
+        myBackground = new Component(800, 400, "bg.jpg", 0, 0, "image");
+        for (var i = 0; i < fishCount; i++) {
+            var myRandomNo = Math.floor(Math.random() * 200)
+            var RandomSpeed=Math.floor(Math.random()*4+1);
+            fishes.push(new Component(30, 50, "oil.png", 0, myRandomNo,RandomSpeed));
+
+        }
+
+    }
+
+    function Component(width, height, src, x, y,speed,type) {
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;
+        this.image=new Image();
+        this.image.src=src;
+        this.speed=speed;
+        this.update = function() {
+            var ctx=myGameArea.context;
+            ctx.drawImage(this.image, 
+            this.x, 
+            this.y,
+            this.width, this.height);
+            //ctx.fillStyle = this.color;
+            //ctx.fillRect(this.x, this.y, this.width, this.height);
+        };
+
+    }
+
+    window.onkeydown=function(e){
+      console.log()
+        var keyCode = e.which;
+        if(keyCode==38)
+            myHero.y--;
+        else if(keyCode==40)
+            myHero.y++;   
+        else if(keyCode==37)
+        myHero.x--;
+        else if(keyCode==39)
+        myHero.x++;       
+    }
+    
+
+    
+    
+    </script>
+</body>
+
+</html>
