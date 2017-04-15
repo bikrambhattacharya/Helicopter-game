@@ -105,24 +105,24 @@ score-
             fishes[i].update();
         }
         myHero.update();
-     /*
+     
 
     }
     var startGame = function() {
         myGameArea.start();
        
         myHero = new Component(80,60 , "Emotion_Helicopter_5x.gif", 600, 120,10,"image");
-        for (var i = 0; i < missilesCount; i++) {
-            missiles.push(new Component(20, 30, "Emotion_Helicopter_5x.gif", 0,
-                Math.floor(Math.random() * 100), Math.floor(Math.random()*3+1), "image"));
-        }
-        console.log(missiles)
+       // for (var i = 0; i < missilesCount; i++) {
+          //  missiles.push(new Component(20, 30, "Emotion_Helicopter_5x.gif", 0,
+             //   Math.floor(Math.random() * 100), Math.floor(Math.random()*3+1), "image"));
+        //}
+        //console.log(missiles)
         for (var i = 0; i < fishCount; i++) {
             var myRandomNo = Math.floor(Math.random() * 200)
             var RandomSpeed=Math.floor(Math.random()*4+1)
             fishes.push(new Component(20, 30, "oil.png", 0, myRandomNo, RandomSpeed, "image"));
         }
-    }*/
+    }
     
 
     function Component(width, height, src, x, y,speed,type) {
