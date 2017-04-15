@@ -66,9 +66,9 @@ score-
     var fishes = [];
     var fishCount = 5;
     var collisions=0;
-    var missile=[];
+    var missiles=[];
     
-    var missileCount= 3;
+    var missilesCount= 3;
 
     var myGameArea = {
         canvas: document.getElementById("myFishingGame"),
@@ -90,6 +90,7 @@ score-
         myGameArea.clear();
         //myHero.x++;
         for (var i = 0; i < fishCount; i++) {
+            //console.log(fishes[i])
             fishes[i].x=fishes[i].x+fishes[i].speed;
             if (fishes[i].x>800) {
                 fishes[i].x=0;
@@ -102,41 +103,26 @@ score-
                 document.getElementById("collisions").innerHTML=collisions;
             }
             fishes[i].update();
-        }myHero.update();
-      //  for(var j=0;j<missileCount;j++){
-        //    missile[j]=missile[j].x+missile[j].speed;
-          /*  if (missile[j].x>800) {
-                missile[j].x=0;
-                missile[j].y=parseInt(Math.random().toFixed(3).substring(2))%400;
-            };
-            if(missile[j].x>=myHero.x && missile[j].x<=myHero.x+myHero.width && missile[j].y>=myHero.y && missile[j].y<=myHero.y+myHero.height){
-                missile[j].x=0;
-                collisions--;
-                missile[j].y=parseInt(Math.random().toFixed(3).substring(2))%400;
-                document.getElementById("collisions").innerHTML=collisions;
-            }
-            missile[j].update;
-        }*/
+        }
+        myHero.update();
+     /*
 
     }
     var startGame = function() {
         myGameArea.start();
        
         myHero = new Component(80,60 , "Emotion_Helicopter_5x.gif", 600, 120,10,"image");
-        
-   //    for (var j = 0; i <missileCount; j++) {
-   //         var andomNo = Math.floor(Math.random() * 200)
-    //        var andomSpeed=Math.floor(Math.random()*4+1);
-     //       missile.push(new Component(20, 30, "m.gif", 0, andomNo,andomSpeed,"image"));
-
+        for (var i = 0; i < missilesCount; i++) {
+            missiles.push(new Component(20, 30, "Emotion_Helicopter_5x.gif", 0,
+                Math.floor(Math.random() * 100), Math.floor(Math.random()*3+1), "image"));
         }
+        console.log(missiles)
         for (var i = 0; i < fishCount; i++) {
             var myRandomNo = Math.floor(Math.random() * 200)
-            var RandomSpeed=Math.floor(Math.random()*4+1);
-            fishes.push(new Component(20, 30, "oil.png", 0, myRandomNo,RandomSpeed));
-
+            var RandomSpeed=Math.floor(Math.random()*4+1)
+            fishes.push(new Component(20, 30, "oil.png", 0, myRandomNo, RandomSpeed, "image"));
         }
-
+    }*/
     
 
     function Component(width, height, src, x, y,speed,type) {
@@ -144,9 +130,9 @@ score-
         this.height = height;
         this.x = x;
         this.y = y;
-        this.image=new Image();
+        this.image= new Image();
         this.image.src=src;
-        this.speed=speed;
+        this.speed= speed;
         this.update = function() {
             var ctx=myGameArea.context;
             ctx.drawImage(this.image, 
@@ -160,24 +146,20 @@ score-
     }
 
     window.onkeydown=function(e){
-      console.log()
-
         var keyCode = e.which;
         if(keyCode==38)
-            myHero.y--;
+            myHero.y=myHero.y-10;
         else if(keyCode==40)
-            myHero.y++;   
+            myHero.y=myHero.y+10;   
         else if(keyCode==37)
-        myHero.x--;
+        myHero.x=myHero.x-10;
         else if(keyCode==39)
-        myHero.x++;      
+        myHero.x=myHero.x+10;      
     }
     function end(){
         myGameArea.stop();
         myGameArea.clear();
     }
-    
-    
 
     
     
