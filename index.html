@@ -3,167 +3,31 @@
 <head>
     <title>Helicopter Game</title>
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
-    <style type="text/css">
-    #myFishingGame {
-        position: relative;
-        float: left;
-        border: 1px solid #d3d3d3;
-        background-image: url(bgyes.gif);
-        margin-left:38%;
-
-    
-    }
-    #collisions{
-        font-family: 'Acme', sans-serif;
-        font-size: 40px;
-        color: white;
-    }
-    body{
-        background-image: url(mainbg.jpg);
-        font-family: 'Acme', sans-serif;
-        font-size: 20px;
-        color: white;
-        height:                             700px;
-    width:                             1024px;
-    }
-    #about{
-        border: 5px solid white;
-        width: 400px;
-    }
-        .btn{padding:2px;
-            background-color:#FFFFCC;
-            font-family: 'Acme', sans-serif;
-           
-        }
-        #btnpos{
-            position: relative;
-            float: left;
-            height: 1px;
-        }
-    </style>
+    <link type="text/css" href="style.css" rel="stylesheet" media="screen"></link>
 </head>
 
 <body>
-    <div id="about">Hi Visitor!<br>
-    This game is devoloped by Bikram Bhattacharya.<br>
-    This a simple game made with html,css,js(javascript)<br>
-    To score you need to collect as much oil as you can using arrow keys!!<br>
-    This Game is currently available for desktop users only
-
-</div>
-score-
-<div id="collisions">0<br></div>
-<div id="btnpos">
-<button class="btn" onclick="startGame()">Start Game</button>
-<button class="btn" onclick="end()">Stop game</button>
-</div>
-
-    <canvas id="myFishingGame" width="800" height="400">
-    </canvas>
-    <script type="text/javascript">
-    var myHero;
-    var fish;
-    var fishes = [];
-    var fishCount = 5;
-    var collisions=0;
-    var missiles=[];
-    
-    var missilesCount= 3;
-
-    var myGameArea = {
-        canvas: document.getElementById("myFishingGame"),
-        start: function() {
-            this.context = this.canvas.getContext("2d");
-            this.interval = setInterval(updateGameArea, 50)
-        },
-        clear: function() {
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        },
-        stop: function()
-                {
-                    clearInterval(this.interval);
-                }
-
-    }
-
-    function updateGameArea() {
-        myGameArea.clear();
-        //myHero.x++;
-        for (var i = 0; i < fishCount; i++) {
-            //console.log(fishes[i])
-            fishes[i].x=fishes[i].x+fishes[i].speed;
-            if (fishes[i].x>800) {
-                fishes[i].x=0;
-                fishes[i].y=parseInt(Math.random().toFixed(3).substring(2))%400;
-            };
-            if(fishes[i].x>=myHero.x && fishes[i].x<=myHero.x+myHero.width && fishes[i].y>=myHero.y && fishes[i].y<=myHero.y+myHero.height){
-                fishes[i].x=0;
-                collisions++;
-                fishes[i].y=parseInt(Math.random().toFixed(3).substring(2))%400;
-                document.getElementById("collisions").innerHTML=collisions;
-            }
-            fishes[i].update();
-        }
-        myHero.update();
-     /*
-
-    }
-    var startGame = function() {
-        myGameArea.start();
-       
-        myHero = new Component(80,60 , "Emotion_Helicopter_5x.gif", 600, 120,10,"image");
-        for (var i = 0; i < missilesCount; i++) {
-            missiles.push(new Component(20, 30, "Emotion_Helicopter_5x.gif", 0,
-                Math.floor(Math.random() * 100), Math.floor(Math.random()*3+1), "image"));
-        }
-        console.log(missiles)
-        for (var i = 0; i < fishCount; i++) {
-            var myRandomNo = Math.floor(Math.random() * 200)
-            var RandomSpeed=Math.floor(Math.random()*4+1)
-            fishes.push(new Component(20, 30, "oil.png", 0, myRandomNo, RandomSpeed, "image"));
-        }
-    }*/
-    
-
-    function Component(width, height, src, x, y,speed,type) {
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
-        this.image= new Image();
-        this.image.src=src;
-        this.speed= speed;
-        this.update = function() {
-            var ctx=myGameArea.context;
-            ctx.drawImage(this.image, 
-            this.x, 
-            this.y,
-            this.width, this.height);
-            //ctx.fillStyle = this.color;
-            //ctx.fillRect(this.x, this.y, this.width, this.height);
-        };
-
-    }
-
-    window.onkeydown=function(e){
-        var keyCode = e.which;
-        if(keyCode==38)
-            myHero.y=myHero.y-10;
-        else if(keyCode==40)
-            myHero.y=myHero.y+10;   
-        else if(keyCode==37)
-        myHero.x=myHero.x-10;
-        else if(keyCode==39)
-        myHero.x=myHero.x+10;      
-    }
-    function end(){
-        myGameArea.stop();
-        myGameArea.clear();
-    }
-
-    
-    
-    </script>
+    <!--     <div id="about">Hi Visitor!
+        <br> This game is devoloped by Bikram Bhattacharya.
+        <br> This a simple game made with html,css,js(javascript)
+        <br> To score you need to collect as much oil as you can using arrow keys!!
+        <br> This Game is currently available for desktop users only
+    </div> -->
+	<div id="maincontent">
+		<div id="canvaswrap">
+			<div id="scoreboard">
+				<div>Score <span id="collisions">0</span></div>
+				<div>Life <span id="crashes">3</span></div>
+				<button class="btn" onclick="end()">Stop game</button>
+			</div>
+			<div id="user_action">
+				<h1 id="message">Start New Game</h1>
+				<button class="btn" onclick="startGame()">Start Game</button>
+			</div>
+			<canvas id="myFishingGame" width="800" height="450"></canvas>
+		</div>
+	</div>
+      <script type="text/javascript" src="main.js"></script>
 </body>
 
 </html>
